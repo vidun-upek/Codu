@@ -1,42 +1,296 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* src/App.css */
+
+/* --- Global & Base Styles --- */
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f9; /* Light background for the whole app */
+    color: #333;
+    font-family: 'Outfit', sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h2 {
+    font-size: 1.5rem;
+    color: #34495e;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    margin-top: 0.5rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* --- Header Styles --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 10;
 }
 
-.card {
-  padding: 2em;
+.header-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
-.read-the-docs {
-  color: #888;
+.problem-select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* --- Main Container & Layout --- */
+.container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden; /* Important for full-height editor */
+}
+
+/* --- Left Section: Problem Description --- */
+.problem-section {
+    flex: 0 0 40%; /* Fixed width for problem section */
+    padding: 2rem;
+    overflow-y: auto; /* Scrollable problem content */
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+}
+
+.difficulty-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3498db; /* Default color */
+}
+
+/* Style for problem examples */
+.examples {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px dashed #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+.example {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    white-space: pre-wrap; /* Preserve formatting for input/output */
+    font-family: monospace;
+}
+
+.example strong {
+    color: #2980b9;
+}
+
+
+/* --- Right Section: Editor and Console --- */
+.editor-section {
+    flex: 1; /* Takes up the rest of the space */
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e; /* Editor background */
+}
+
+.editor-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: #333;
+    color: #fff;
+    border-bottom: 1px solid #444;
+}
+
+.language-select {
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.run-button {
+    padding: 8px 15px;
+    background-color: #2ecc71; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.run-button:disabled {
+    background-color: #7f8c8d; /* Grey when disabled */
+    cursor: not-allowed;
+}
+
+.run-button:hover:not(:disabled) {
+    background-color: #27ae60;
+}
+
+.editor-container {
+    flex-grow: 1;
+    height: 60%; /* Monaco editor needs explicit height/flex */
+}
+
+/* --- Console Section --- */
+.console-section {
+    height: 40%;
+    max-height: 40%;
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid #555;
+    background-color: #282c34; /* Dark console background */
+    color: #abb2bf; /* Console text color */
+    font-size: 0.9rem;
+}
+
+.console-header {
+    padding: 10px 15px;
+    background-color: #3c4046;
+    font-weight: bold;
+    border-bottom: 1px solid #444;
+}
+
+.console-icon {
+    margin-right: 8px;
+    color: #61afef;
+}
+
+.console-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 15px;
+}
+
+.console-empty {
+    color: #999;
+    text-align: center;
+    padding-top: 20px;
+}
+
+/* --- Test Result Styles --- */
+.test-case-result {
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+.test-case-header {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.test-status-icon {
+    margin-right: 10px;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.test-case-details {
+    margin-top: 5px;
+    padding-left: 25px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.test-case-error {
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #401010;
+    color: #ff6347;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 0.8rem;
+}
+
+.test-case-result.passed {
+    background-color: #30473e;
+    color: #a4e58a;
+}
+.test-case-result.passed .test-status-icon { color: #a4e58a; }
+
+
+.test-case-result.failed {
+    background-color: #4c2f2f;
+    color: #ff8c8c;
+}
+.test-case-result.failed .test-status-icon { color: #ff8c8c; }
+
+.test-case-result.running {
+    background-color: #3b3b4d;
+    color: #f7d08a;
+}
+.test-case-result.running .test-status-icon { 
+    color: #f7d08a; 
+    animation: spin 1s linear infinite;
+}
+
+/* Summary Bar */
+.console-summary {
+    padding: 10px 15px;
+    background-color: #3c4046;
+    border-top: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-left {
+    display: flex;
+    gap: 15px;
+}
+
+.summary-item.passed {
+    color: #a4e58a;
+}
+.summary-item.failed {
+    color: #ff8c8c;
+}
+
+/* --- Animations --- */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Responsive Adjustments (for smaller screens) --- */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .problem-section {
+        flex: none;
+        max-height: 50vh; /* Allow scrolling within 50% of viewport height */
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .editor-container, .console-section {
+        height: unset;
+        min-height: 40vh; /* Ensure space for editor/console */
+        max-height: unset;
+    }
 }
